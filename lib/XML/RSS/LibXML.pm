@@ -173,9 +173,11 @@ sub parse_dom
 {
     my $self = shift;
     my $dom  = shift;
-    my $version = $self->guess_version_from_dom($dom);
-    my $impl = $self->create_impl($version);
-    $self->impl($impl);
+    if( ! ( $self->impl && $self->version ) ){
+        my $version = $self->guess_version_from_dom($dom);
+        my $impl = $self->create_impl($version);
+        $self->impl($impl);
+    }
     $self->impl->parse_dom($self, $dom);
     $self;
 }

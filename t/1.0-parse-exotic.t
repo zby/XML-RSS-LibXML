@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 5;
 use XML::RSS::LibXML;
 use File::Spec;
 
@@ -49,4 +49,14 @@ ok ($rss->{'items'}->[0]->{'http://my.theinfo.org/changed/1.0/rss/'}->{'server'}
 	"http://example.org/changedPage",
 	'parse rdf:resource on item' );
 
+
+##############################
+#
+my $file = File::Spec->catfile(File::Spec->curdir(), "t", "data", "1.0", "other.rss");
+my $rss = new XML::RSS::LibXML( version => '1.0' );
+
+eval {
+	$rss->parsefile( $file );
+};
+ok (!$@, "Not guessing" );
 
